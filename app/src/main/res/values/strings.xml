@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">meli-play-challenge</string>
+    <string name="app_name">meli play</string>
+
+
+    <string name="home_fragment">Home View</string>
 </resources>
