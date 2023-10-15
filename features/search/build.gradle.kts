@@ -40,6 +40,7 @@ android {
 dependencies {
 
     implementation(project(":core:navigation"))
+    implementation(project(":core:network"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.appcompat)

@@ -11,6 +11,7 @@ import com.example.detail.databinding.FragmentDetailBinding
 import com.example.detail.presentation.DetailUiState
 import com.example.detail.presentation.DetailViewModel
 import com.example.detail.presentation.di.DetailProvider
+import com.example.navigation.Constants.ITEM_ID_KEY
 import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -26,8 +27,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailBinding.bind(view)
-        val itemId = requireActivity().intent.data?.getQueryParameter("item_id").orEmpty()
         setupObservers()
+        val itemId = requireActivity().intent.data?.getQueryParameter(ITEM_ID_KEY).orEmpty()
         detailViewModel.getItemById(itemId)
     }
 
@@ -38,7 +39,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
     }
-
     private fun renderUI(state: DetailUiState) {
         when {
             state.isLoading -> {
@@ -49,7 +49,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

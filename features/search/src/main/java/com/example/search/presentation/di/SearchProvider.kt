@@ -1,5 +1,7 @@
 package com.example.search.presentation.di
 
+import com.example.network.ApiServiceFactory
+import com.example.network.DEFAULT_BASE_URL
 import com.example.search.data.DefaultSearchRepository
 import com.example.search.data.remote.RemoteDataSource
 import com.example.search.data.remote.SearchApi
@@ -13,10 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 interface SearchProvider {
 
-    val baseURL: String
-
-    val disPatcher: CoroutineDispatcher
-
     val searchApi: SearchApi
 
     val remoteDataSource: SearchDatasource
@@ -24,25 +22,19 @@ interface SearchProvider {
     val repository: SearchRepository
 
     val useCase: SearchUseCase
-
     companion object {
         fun create(): SearchProvider = SearchProviderDefault()
     }
 }
 
 class SearchProviderDefault : SearchProvider {
-    override val baseURL: String
-        get() = "https://api.mercadolibre.com/"
-    override val disPatcher: CoroutineDispatcher
-        get() = Dispatchers.IO
     override val searchApi: SearchApi
-        get() = Retrofit.Builder()
-            .baseUrl(baseURL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(SearchApi::class.java)
+        get() = ApiServiceFactory<SearchApi>().create(
+            baseURL = DEFAULT_BASE_URL,
+            kClass = SearchApi::class.java
+        )
     override val remoteDataSource: SearchDatasource
-        get() = RemoteDataSource(searchApi, disPatcher)
+        get() = RemoteDataSource(searchApi)
     override val repository: SearchRepository
         get() = DefaultSearchRepository(remoteDataSource)
     override val useCase: SearchUseCase

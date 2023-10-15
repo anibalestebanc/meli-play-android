@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.navigation.Constants.DETAIL_MODULE
+import com.example.navigation.Constants.ITEM_ID_KEY
+import com.example.navigation.Constants.SEARCH_VALUE_KEY
 import com.example.navigation.DeepLinkFactory
 import com.example.navigation.DeepLinkHandler
 import com.example.search.R
@@ -13,16 +16,16 @@ import com.example.search.databinding.FragmentSearchBinding
 import com.example.search.presentation.SearchUiState
 import com.example.search.presentation.SearchViewModel
 import com.example.search.presentation.di.SearchProvider
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
-
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     private val provider = SearchProvider.create()
 
-    private val searchAdapter = ItemAdapter(::onClickedItem)
+    private val searchAdapter = ItemAdapter(::goToDetail)
 
     private val searchViewModel: SearchViewModel by lazy {
         SearchViewModel(provider.useCase)
@@ -33,13 +36,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         _binding = FragmentSearchBinding.bind(view)
         setupObservers()
         setupRecyclerView()
-        searchViewModel.searchByText("motorola")
+        val searchValue =
+            requireActivity().intent.data?.getQueryParameter(SEARCH_VALUE_KEY).orEmpty()
+        searchViewModel.searchByText(searchValue)
     }
 
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.searchState.collect(::renderUI)
+                searchViewModel.searchState
+                    .collect(::renderUI)
             }
         }
     }
@@ -61,9 +67,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-
-    private fun onClickedItem(itemId: String) {
-        val deepLink = DeepLinkFactory.create("detail", mapOf("item_id" to itemId))
+    private fun goToDetail(itemId: String) {
+        val deepLink = DeepLinkFactory.create(DETAIL_MODULE, mapOf(ITEM_ID_KEY to itemId))
         DeepLinkHandler.openDeepLink(requireContext(), deepLink)
     }
 
