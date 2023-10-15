@@ -41,12 +41,16 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.ktx)
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(project(":core:navigation"))
 
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation(project(":features:search"))
+    implementation(project(":features:detail"))
+
+    implementation(libs.androidx.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.fragment.ktx)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
