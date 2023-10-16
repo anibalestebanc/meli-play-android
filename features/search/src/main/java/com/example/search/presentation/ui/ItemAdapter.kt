@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.search.databinding.SearchItemBinding
 import com.example.search.domain.model.Item
 import com.example.search.presentation.ui.ItemDiffCallBack.ITEM_DIFF_UTIL
@@ -16,6 +18,7 @@ class ItemAdapter(
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
@@ -24,8 +27,15 @@ class ItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
-            binding.itemId.text = item.id
-            binding.itemId.setOnClickListener {
+            binding.imageItem.load(item.thumbnail) {
+                crossfade(true)
+                transformations(RoundedCornersTransformation())
+            }
+            binding.itemTitle.text = item.title
+            binding.itemOriginalPrice.text = item.originalPrice.toString()
+            binding.itemPrice.text = item.price.toString()
+            binding.sellerBy.text = "por ${item.officialStoreName.orEmpty()}"
+            binding.root.setOnClickListener {
                 onClicked(item.id)
             }
         }

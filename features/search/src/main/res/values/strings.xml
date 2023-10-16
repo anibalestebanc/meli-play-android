@@ -1,4 +1,3 @@
 <resources>
-
-    <string name="search_fragment">Search fragment</string>
+    <string name="search">Search</string>
 </resources>

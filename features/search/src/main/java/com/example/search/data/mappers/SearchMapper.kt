@@ -5,5 +5,12 @@ import com.example.search.domain.model.Item
 
 
 fun RemoteItem.asDomain() = Item(
-    id = id
+    id = id,
+    title = title,
+    price = price,
+    originalPrice = originalPrice,
+    officialStoreName = officialStoreName,
+    categoryId = categoryId,
+    availableQuantity = availableQuantity,
+    thumbnail = thumbnail
 )

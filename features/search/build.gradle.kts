@@ -51,6 +51,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.gson)
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

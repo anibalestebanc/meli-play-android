@@ -6,8 +6,11 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.detail.R
 import com.example.detail.databinding.FragmentDetailBinding
+import com.example.detail.domain.model.ItemDetail
 import com.example.detail.presentation.DetailUiState
 import com.example.detail.presentation.DetailViewModel
 import com.example.detail.presentation.di.DetailProvider
@@ -39,16 +42,30 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
     }
+
     private fun renderUI(state: DetailUiState) {
         when {
             state.isLoading -> {
             }
 
             state.itemDetail != null -> {
-                binding.itemId.text = state.itemDetail.id
+                setItemDetail(state.itemDetail)
             }
         }
     }
+
+    private fun setItemDetail(itemDetail: ItemDetail) {
+        binding.imageItem.load(itemDetail.pictures[0].secureUrl) {
+            crossfade(true)
+            transformations(RoundedCornersTransformation())
+            placeholder(R.drawable.image_placeholder)
+        }
+        binding.itemTitle.text = itemDetail.title
+        binding.itemOriginalPrice.text = itemDetail.originalPrice.toString()
+        binding.itemPrice.text = itemDetail.price.toString()
+        binding.sellerBy.text = "por ${itemDetail.officialStoreName.orEmpty()}"
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

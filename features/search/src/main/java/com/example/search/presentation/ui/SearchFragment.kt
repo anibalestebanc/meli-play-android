@@ -16,7 +16,6 @@ import com.example.search.databinding.FragmentSearchBinding
 import com.example.search.presentation.SearchUiState
 import com.example.search.presentation.SearchViewModel
 import com.example.search.presentation.di.SearchProvider
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -38,6 +37,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setupRecyclerView()
         val searchValue =
             requireActivity().intent.data?.getQueryParameter(SEARCH_VALUE_KEY).orEmpty()
+        binding.toolbar.title = searchValue.toUpperCase()
         searchViewModel.searchByText(searchValue)
     }
 
