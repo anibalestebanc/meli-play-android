@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:navigation"))
     implementation(project(":core:network"))
 
@@ -54,6 +53,6 @@ dependencies {
     implementation(libs.coil)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

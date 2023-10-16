@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -49,6 +48,6 @@ dependencies {
     implementation(libs.mockwebserver)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.detail.domain.DetailRepository
 import com.example.detail.domain.model.ItemDetail
+import com.example.network.ApiError
+import com.example.network.ErrorHandler.handleError
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,19 +27,27 @@ class DetailViewModel(
             fetchJob?.cancel()
             fetchJob = viewModelScope.launch(dispatcher) {
                 updateState(isLoading = true)
-                try {
-                    updateState(false, repository.getItemById(itemID))
-                } catch (e: Exception) {
-                    updateState(isLoading = false)
-                }
+                repository.getItemById(itemID).fold(
+                    onSuccess = {
+                                updateState(itemDetail = it)
+                    },
+                    onFailure = {
+                        updateState(error = handleError(it))
+                    }
+                )
             }
         }
     }
 
-    private fun updateState(isLoading: Boolean = false, itemDetail: ItemDetail? = null) {
+    private fun updateState(
+        isLoading: Boolean = false,
+        itemDetail: ItemDetail? = null,
+        error: ApiError? = null
+    ) {
         _detailState.value = _detailState.value.copy(
             isLoading = isLoading,
-            itemDetail = itemDetail
+            itemDetail = itemDetail,
+            error = error
         )
     }
 }

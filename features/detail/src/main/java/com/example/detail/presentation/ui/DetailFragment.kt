@@ -48,9 +48,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             state.isLoading -> {
             }
 
-            state.itemDetail != null -> {
-                setItemDetail(state.itemDetail)
-            }
+            state.itemDetail != null -> setItemDetail(state.itemDetail)
+
         }
     }
 

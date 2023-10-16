@@ -1,13 +1,13 @@
 package com.example.detail.data
 
+import com.example.detail.data.remote.DetailRemoteDataSource
 import com.example.detail.data.remote.model.asDomain
-import com.example.detail.data.source.DetailDataSource
 import com.example.detail.domain.DetailRepository
 import com.example.detail.domain.model.ItemDetail
 
 class DefaultDetailRepository(
-    private val datasource: DetailDataSource
+    private val remoteDataSource: DetailRemoteDataSource
 ) : DetailRepository {
-    override suspend fun getItemById(id: String): ItemDetail =
-        datasource.getItemById(id).asDomain()
+    override suspend fun getItemById(id: String): Result<ItemDetail> =
+        remoteDataSource.getItemById(id).map { it.asDomain() }
 }

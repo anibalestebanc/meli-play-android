@@ -14,8 +14,9 @@ okhttp = "4.11.0"
 gson = "2.9.0"
 coil = "2.4.0"
 
+leakcanary = "2.12"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
+ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
 [libraries]
@@ -32,9 +33,10 @@ logging_interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gson" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 
+leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
 [plugins]

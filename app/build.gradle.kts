@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         debug {
-            isDebuggable =  true
+            isDebuggable = true
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
 
@@ -46,9 +46,7 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:navigation"))
-
     implementation(project(":features:search"))
     implementation(project(":features:detail"))
 
@@ -58,7 +56,9 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.fragment.ktx)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    debugImplementation(libs.leakcanary)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }

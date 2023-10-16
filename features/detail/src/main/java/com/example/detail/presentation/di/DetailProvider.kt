@@ -2,19 +2,18 @@ package com.example.detail.presentation.di
 
 import com.example.detail.data.DefaultDetailRepository
 import com.example.detail.data.remote.ItemsApi
-import com.example.detail.data.remote.RemoteDataSource
-import com.example.detail.data.source.DetailDataSource
+import com.example.detail.data.remote.DetailRemoteDataSource
 import com.example.detail.domain.DetailRepository
+import com.example.network.ApiServiceFactory
+import com.example.network.DEFAULT_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 interface DetailProvider {
 
-    val baseURL: String
-
     val itemsApi: ItemsApi
 
-    val remoteDatasource: DetailDataSource
+    val remoteDatasource: DetailRemoteDataSource
 
     val repository: DetailRepository
 
@@ -24,16 +23,13 @@ interface DetailProvider {
 }
 
 class DetailProviderDefault : DetailProvider {
-    override val baseURL: String
-        get() = "https://api.mercadolibre.com/"
     override val itemsApi: ItemsApi
-        get() = Retrofit.Builder()
-            .baseUrl(baseURL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ItemsApi::class.java)
-    override val remoteDatasource: DetailDataSource
-        get() = RemoteDataSource(itemsApi)
+        get() = ApiServiceFactory<ItemsApi>().create(
+            baseURL = DEFAULT_BASE_URL,
+            kClass = ItemsApi::class.java
+        )
+    override val remoteDatasource: DetailRemoteDataSource
+        get() = DetailRemoteDataSource(itemsApi)
     override val repository: DetailRepository
         get() = DefaultDetailRepository(remoteDatasource)
 

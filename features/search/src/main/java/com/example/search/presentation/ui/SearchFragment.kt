@@ -59,11 +59,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun renderUI(state: SearchUiState) {
         when {
             state.isLoading -> {
+
             }
 
-            state.items != null -> {
-                searchAdapter.submitList(state.items)
-            }
+            state.items != null -> searchAdapter.submitList(state.items)
         }
     }
 
