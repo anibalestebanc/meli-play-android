@@ -14,6 +14,7 @@ okhttp = "4.11.0"
 gson = "2.9.0"
 coil = "2.4.0"
 
+detekt = "1.23.1"
 leakcanary = "2.12"
 junit = "4.13.2"
 junit5 = "5.8.2"
@@ -51,3 +52,4 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5Plugin" }
+detekt =  { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

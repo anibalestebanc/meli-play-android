@@ -16,6 +16,8 @@ listar los productos en relación a la busqueda, y ver el detalle del producto.
 
 ### Screenshots
 
+<img src="screenshots/search_items.png"/> <img src="screenshots/detail_item.png"/>
+
 ## Como probar y correr el proyecto
 
 - Check Lint
@@ -26,6 +28,11 @@ listar los productos en relación a la busqueda, y ver el detalle del producto.
 - Check 
 ```
 ./gradlew check
+```
+
+- Detekt
+```
+./gradlew detekt
 ```
 
 - Tests
