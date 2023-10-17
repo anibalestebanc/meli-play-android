@@ -5,3 +5,14 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.detekt) apply false
 }
+
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        html.outputLocation.set(file("build/reports/detekt.html"))
+        xml.required.set(false)
+        txt.required.set(false)
+        sarif.required.set(false)
+    }
+}
