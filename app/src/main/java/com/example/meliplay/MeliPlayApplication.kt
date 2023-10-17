@@ -1,4 +1,4 @@
-package com.example.meli_play_challenge
+package com.example.meliplay
 
 import android.app.Application
 

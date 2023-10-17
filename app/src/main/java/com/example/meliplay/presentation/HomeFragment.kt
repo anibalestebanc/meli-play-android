@@ -1,10 +1,10 @@
-package com.example.meli_play_challenge.presentation
+package com.example.meliplay.presentation
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.meli_play_challenge.R
-import com.example.meli_play_challenge.databinding.FragmentHomeBinding
+import com.example.meliplay.R
+import com.example.meliplay.databinding.FragmentHomeBinding
 import com.example.navigation.Constants.SEARCH_MODULE
 import com.example.navigation.Constants.SEARCH_VALUE_KEY
 import com.example.navigation.DeepLinkFactory

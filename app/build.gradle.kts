@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.meli_play_challenge"
+    namespace = "com.example.meliplay"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.meli_play_challenge"
+        applicationId = "com.example.meliplay"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

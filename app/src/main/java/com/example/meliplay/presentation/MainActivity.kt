@@ -1,9 +1,9 @@
-package com.example.meli_play_challenge.presentation
+package com.example.meliplay.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
-import com.example.meli_play_challenge.R
+import com.example.meliplay.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
