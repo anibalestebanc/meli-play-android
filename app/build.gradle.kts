@@ -54,6 +54,11 @@ android {
     dataBinding {
         enable = true
     }
+    detekt {
+        toolVersion = "1.23.1"
+        config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
+        buildUponDefaultConfig = true
+    }
 }
 
 dependencies {
@@ -68,6 +73,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.fragment.ktx)
 
+    detektPlugins(libs.detekt.formatting)
     debugImplementation(libs.leakcanary)
 
     testImplementation(libs.junit)
