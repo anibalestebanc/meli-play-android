@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.navigation.Constants.DETAIL_MODULE
@@ -15,6 +16,7 @@ import com.example.search.R
 import com.example.search.databinding.FragmentSearchBinding
 import com.example.search.presentation.SearchUiState
 import com.example.search.presentation.SearchViewModel
+import com.example.search.presentation.SearchViewModelFactory
 import com.example.search.presentation.di.SearchProvider
 import kotlinx.coroutines.launch
 
@@ -25,20 +27,29 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val provider = SearchProvider.create()
 
+    private val viewModelFactory = SearchViewModelFactory(provider.useCase)
+
     private val searchAdapter = ItemAdapter(::goToDetail)
 
     private val searchViewModel: SearchViewModel by lazy {
-        SearchViewModel(provider.useCase)
+        ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
     }
+    private lateinit var searchValue: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
         setupObservers()
+        setupClickListener()
         setupRecyclerView()
-        val searchValue =
-            requireActivity().intent.data?.getQueryParameter(SEARCH_VALUE_KEY).orEmpty()
+        searchValue = requireActivity().intent.data?.getQueryParameter(SEARCH_VALUE_KEY).orEmpty()
         searchViewModel.searchByText(searchValue)
+    }
+
+    private fun setupClickListener() {
+        binding.retryError.retryButton.setOnClickListener {
+            searchViewModel.searchByText(searchValue)
+        }
     }
 
     private fun setupObservers() {
@@ -59,15 +70,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun renderUI(state: SearchUiState) {
         when {
             state.isLoading -> {
-                binding.loadingView.visibility = View.VISIBLE
+                binding.retryError.root.visibility = View.GONE
+                binding.loading.root.visibility = View.VISIBLE
             }
-            state.error != null ->{
-                binding.loadingView.visibility = View.GONE
-                binding.retryErrorView.visibility = View.VISIBLE
+
+            state.error != null -> {
+                binding.loading.root.visibility = View.GONE
+                binding.retryError.root.visibility = View.VISIBLE
             }
+
             state.items != null -> {
-                binding.loadingView.visibility = View.GONE
-                binding.retryErrorView.visibility = View.GONE
+                binding.loading.root.visibility = View.GONE
+                binding.retryError.root.visibility = View.GONE
                 searchAdapter.submitList(state.items)
             }
         }

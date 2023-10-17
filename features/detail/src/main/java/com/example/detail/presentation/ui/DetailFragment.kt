@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
@@ -13,6 +14,7 @@ import com.example.detail.databinding.FragmentDetailBinding
 import com.example.detail.domain.model.ItemDetail
 import com.example.detail.presentation.DetailUiState
 import com.example.detail.presentation.DetailViewModel
+import com.example.detail.presentation.DetailViewModelFactory
 import com.example.detail.presentation.di.DetailProvider
 import com.example.navigation.Constants.ITEM_ID_KEY
 import kotlinx.coroutines.launch
@@ -25,17 +27,27 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val provider = DetailProvider.create()
 
+    private val viewModelFactory = DetailViewModelFactory(provider.repository)
+
     private val detailViewModel: DetailViewModel by lazy {
-        DetailViewModel(provider.repository)
+        ViewModelProvider(this, viewModelFactory)[DetailViewModel::class.java]
     }
+    private lateinit var itemID : String
 
     private val formatter = DecimalFormat("#,###")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailBinding.bind(view)
         setupObservers()
-        val itemId = requireActivity().intent.data?.getQueryParameter(ITEM_ID_KEY).orEmpty()
-        detailViewModel.getItemById(itemId)
+        setupClickListeners()
+        itemID = requireActivity().intent.data?.getQueryParameter(ITEM_ID_KEY).orEmpty()
+        detailViewModel.getItemById(itemID)
+    }
+
+    private fun setupClickListeners() {
+        binding.retryError.retryButton.setOnClickListener {
+            detailViewModel.getItemById(itemID)
+        }
     }
 
     private fun setupObservers() {
@@ -49,10 +61,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun renderUI(state: DetailUiState) {
         when {
             state.isLoading -> {
+                binding.retryError.root.visibility = View.GONE
+                binding.loading.root.visibility = View.VISIBLE
             }
-
-            state.itemDetail != null -> setItemDetail(state.itemDetail)
-
+            state.error != null ->{
+                binding.loading.root.visibility = View.GONE
+                binding.retryError.root.visibility = View.VISIBLE
+            }
+            state.itemDetail != null -> {
+                binding.loading.root.visibility = View.GONE
+                binding.retryError.root.visibility = View.GONE
+                setItemDetail(state.itemDetail)
+            }
         }
     }
 

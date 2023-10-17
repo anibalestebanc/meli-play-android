@@ -1,37 +1,33 @@
 # Meli Play android
 
-Este es un proyecto de desafio para android (Meli play)
+Challenge de android (Meli play)
 
 ## Requerimientos
 
 - Java version 17
-- Kotlin 1.9.0
 - Android Gradle 8.1.2
 - Android Studio Giraffe
 
 ## Descripción
 
-La aplicación cuenta con las funcionalidades de busqueda y listado de productos de mercado libre, la cual permite buscar un producto por texto,
-listar los productos en relación a la busqueda, y ver el detalle del producto.
+La aplicación cuenta con las funcionalidades de búsqueda y listado de productos de Mercado Libre
+
+## Features
+
+- Search
+- Search List
+- Detail
 
 ### Screenshots
 
-<img src="screenshots/search_items.png"/> <img src="screenshots/detail_item.png"/>
+<img src="screenshots/search_feature_image.png"/> <img src="screenshots/detail_feature_image.png"/>
 
 ## Como probar y correr el proyecto
 
-- Check Lint
-```
-./gradlew lint
-```
-
 - Check 
 ```
+./gradlew lint
 ./gradlew check
-```
-
-- Detekt
-```
 ./gradlew detekt
 ```
 
@@ -54,12 +50,9 @@ listar los productos en relación a la busqueda, y ver el detalle del producto.
 - OkHttp
 - Gson
 - Coil
-
-### Otros
-
-- Junit
+- Junit 5
 - LeakCanary
-- Detek
+- Detekt
 
 
 ### APIS usadas
@@ -72,7 +65,7 @@ listar los productos en relación a la busqueda, y ver el detalle del producto.
 
 ## Arquitectura
 
-Arquitecture Modular, cada modulo es una feature, y para cada module se aplica una Clean Arquitecture con enfoque en el flujo unidireccional
+Arquitecture Modular basada en features. Para cada module se usa  Clean Arquitecture con enfoque en el flujo unidireccional
 
 ### Modulos
 
