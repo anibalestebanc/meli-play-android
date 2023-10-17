@@ -14,13 +14,16 @@ La aplicación cuenta con las funcionalidades de búsqueda y listado de producto
 
 ## Features
 
-- Search
-- Search List
-- Detail
+* Búsqueda
+* Listado de resultados
+* Detalle del Item
 
 ### Screenshots
 
-<img src="screenshots/search_feature_image.png" width="150"/> <img src="screenshots/detail_feature_image.png" width="150"/>
+|Search|Detail|
+|:--:|:--:|
+|<img src="screenshots/search_feature_image.png" width="200"/>|<img src="screenshots/detail_feature_image.png" width="200"/>|
+
 
 ## Como probar y correr el proyecto
 
@@ -61,7 +64,7 @@ La aplicación cuenta con las funcionalidades de búsqueda y listado de producto
 * Detekt
 
 
-### APIS usadas
+## APIS usadas
 
 - Search by query 
 ```
@@ -79,9 +82,10 @@ curl --location 'https://api.mercadolibre.com/items?ids=MLC12345' \
 
 ## Arquitectura
 
-Arquitecture Modular basada en features. Para cada module se usa  Clean Arquitecture con enfoque en el flujo unidireccional
+* Arquitecture modular basada en features. 
+* Para cada feature se usa clean Archuitecture con enfoque en flujo unidireccional
 
-### Modulos
+## Modulos
 
 * Network
 * Navigation
@@ -89,7 +93,7 @@ Arquitecture Modular basada en features. Para cada module se usa  Clean Arquitec
 * Search
 * Detail
 
-### Capas ppr feature
+## Estructura de capas por feature
 
 * Data
 * Domain
