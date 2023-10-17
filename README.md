@@ -18,14 +18,19 @@ listar los productos en relación a la busqueda, y ver el detalle del producto.
 
 ## Como probar y correr el proyecto
 
+- Check Lint
+```
+./gradlew lint
+```
+
 - Check 
 ```
 ./gradlew check
 ```
 
-- Check Lint
+- Tests
 ```
-./gradlew check
+./gradlew test
 ```
 
 - Build app

@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.android.junit5)
 }
 
 android {
@@ -16,6 +17,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -40,6 +44,7 @@ android {
 dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:network"))
+    implementation(project(":core:components"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.appcompat)
@@ -52,7 +57,10 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.coil)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.junit5)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.mockwebserver)
+
+    testRuntimeOnly(libs.jupiter.engine)
 }

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.detail"
+    namespace = "com.example.components"
     compileSdk = 33
 
     defaultConfig {
@@ -31,27 +31,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:navigation"))
-    implementation(project(":core:network"))
-    implementation(project(":core:components"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.constraintlayout)
-    implementation(libs.fragment.ktx)
-
-    implementation(libs.retrofit)
-    implementation(libs.gson)
-    implementation(libs.coil)
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

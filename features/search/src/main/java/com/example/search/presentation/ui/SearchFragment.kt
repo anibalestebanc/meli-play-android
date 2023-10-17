@@ -37,7 +37,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setupRecyclerView()
         val searchValue =
             requireActivity().intent.data?.getQueryParameter(SEARCH_VALUE_KEY).orEmpty()
-        binding.toolbar.title = searchValue.toUpperCase()
         searchViewModel.searchByText(searchValue)
     }
 
@@ -59,10 +58,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun renderUI(state: SearchUiState) {
         when {
             state.isLoading -> {
-
+                binding.loadingView.visibility = View.VISIBLE
             }
-
-            state.items != null -> searchAdapter.submitList(state.items)
+            state.error != null ->{
+                binding.loadingView.visibility = View.GONE
+                binding.retryErrorView.visibility = View.VISIBLE
+            }
+            state.items != null -> {
+                binding.loadingView.visibility = View.GONE
+                binding.retryErrorView.visibility = View.GONE
+                searchAdapter.submitList(state.items)
+            }
         }
     }
 
