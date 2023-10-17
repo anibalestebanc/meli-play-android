@@ -13,5 +13,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "meli-play-challenge"
+rootProject.name = "meli-play"
 include(":app")
+include(":core:network")
+include(":core:navigation")
+include(":features:search")
+include(":features:detail")
+include(":core:components")

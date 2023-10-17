@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">meli-play-challenge</string>
+    <string name="app_name">Meli Play</string>
+    <string name="search_hint">Buscar en Meli</string>
+    <string name="search_button">Buscar</string>
 </resources>

@@ -1,16 +1,17 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.detekt)
 }
 
 android {
-    namespace = "com.example.meli_play_challenge"
-    compileSdk = 33
+    namespace = "com.example.meliplay"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.meli_play_challenge"
+        applicationId = "com.example.meliplay"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -18,6 +19,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -26,6 +33,12 @@ android {
             )
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -33,15 +46,31 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
+    implementation(project(":core:navigation"))
+    implementation(project(":core:components"))
+    implementation(project(":features:search"))
+    implementation(project(":features:detail"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.androidx.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.fragment.ktx)
+
+    debugImplementation(libs.leakcanary)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
