@@ -16,6 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/gray"
             app:title="@string/search" />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -17,7 +17,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/detail" />
+            app:title="@string/detail"
+            app:titleTextColor="@color/gray" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -103,7 +104,6 @@
             app:layout_constraintStart_toEndOf="@+id/image_item"
             app:layout_constraintTop_toBottomOf="@+id/item_price"
             tools:text="Vendido por" />
-
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

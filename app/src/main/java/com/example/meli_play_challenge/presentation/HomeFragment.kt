@@ -11,6 +11,7 @@ import com.example.navigation.DeepLinkFactory
 import com.example.navigation.DeepLinkHandler
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 

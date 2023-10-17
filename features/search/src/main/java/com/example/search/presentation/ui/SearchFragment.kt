@@ -19,6 +19,7 @@ import com.example.search.presentation.di.SearchProvider
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
+
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 

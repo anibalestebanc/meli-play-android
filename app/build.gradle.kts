@@ -53,6 +53,7 @@ android {
 
 dependencies {
     implementation(project(":core:navigation"))
+    implementation(project(":core:components"))
     implementation(project(":features:search"))
     implementation(project(":features:detail"))
 

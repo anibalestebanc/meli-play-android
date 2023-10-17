@@ -1,4 +1,5 @@
 <resources>
-
-    <string name="detail">Detalle del Item</string>
+    <string name="detail">Detalle</string>
+    <string name="before">Antes</string>
+    <string name="seller_by">Vendido por</string>
 </resources>

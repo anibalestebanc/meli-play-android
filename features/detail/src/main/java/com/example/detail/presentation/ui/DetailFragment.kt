@@ -16,8 +16,10 @@ import com.example.detail.presentation.DetailViewModel
 import com.example.detail.presentation.di.DetailProvider
 import com.example.navigation.Constants.ITEM_ID_KEY
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
+
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -27,6 +29,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         DetailViewModel(provider.repository)
     }
 
+    private val formatter = DecimalFormat("#,###")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailBinding.bind(view)
@@ -61,8 +64,37 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
         binding.itemTitle.text = itemDetail.title
         binding.itemOriginalPrice.text = itemDetail.originalPrice.toString()
-        binding.itemPrice.text = itemDetail.price.toString()
-        binding.sellerBy.text = "por ${itemDetail.officialStoreName.orEmpty()}"
+
+        val priceFormatted = formatter.format(itemDetail.price)
+        binding.itemPrice.text = buildString {
+            append("$ ")
+            append(priceFormatted)
+        }
+
+        if (itemDetail.originalPrice > 0) {
+            val beforePrice = binding.root.context.getString(R.string.before)
+            val beforePriceFormatted = formatter.format(itemDetail.originalPrice)
+            binding.itemOriginalPrice.text = buildString {
+                append(beforePrice)
+                append("  $ ")
+                append(beforePriceFormatted)
+            }
+            binding.itemOriginalPrice.visibility = View.VISIBLE
+        } else {
+            binding.itemOriginalPrice.visibility = View.GONE
+        }
+
+        if (!itemDetail.officialStoreName.isNullOrEmpty()) {
+            val sellerBy = binding.root.context.getString(R.string.seller_by)
+            binding.sellerBy.text = buildString {
+                append(sellerBy)
+                append(" ")
+                append(itemDetail.officialStoreName)
+            }
+            binding.sellerBy.visibility = View.VISIBLE
+        } else {
+            binding.sellerBy.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {
