@@ -6,8 +6,6 @@ import com.example.detail.data.remote.DetailRemoteDataSource
 import com.example.detail.domain.DetailRepository
 import com.example.network.ApiServiceFactory
 import com.example.network.DEFAULT_BASE_URL
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 interface DetailProvider {
 

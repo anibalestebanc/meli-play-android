@@ -18,7 +18,7 @@ class SearchRemoteDataSourceTest {
 
     private val mockedWebServer = MockWebServer()
 
-    private lateinit var serviceApi: SearchApi
+    private lateinit var searchApi: SearchApi
 
     private lateinit var remoteDataSource: SearchRemoteDataSource
 
@@ -26,11 +26,11 @@ class SearchRemoteDataSourceTest {
 
     @BeforeEach
     fun setup() {
-        serviceApi = MockWebServerFactory<SearchApi>().create(
+        searchApi = MockWebServerFactory<SearchApi>().create(
             mockWebServer = mockedWebServer, kClass = SearchApi::class.java
         )
         remoteDataSource = SearchRemoteDataSource(
-            searchApi = serviceApi,
+            searchApi = searchApi,
             siteId = siteID,
             ioDispatcher = Dispatchers.Default
         )

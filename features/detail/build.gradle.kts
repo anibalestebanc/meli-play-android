@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.android.junit5)
 }
 
 android {
@@ -52,7 +53,10 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.coil)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    testImplementation(libs.junit5)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.mockwebserver)
+
+    testRuntimeOnly(libs.jupiter.engine)
 }
